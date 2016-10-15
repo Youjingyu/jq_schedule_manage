@@ -1,0 +1,271 @@
+body{
+    margin: 0;
+    font-size: 20px;
+    color: #666;
+    font-family: '微软雅黑', 'Microsoft YaHei', 'Arial', 'sans-serif';
+}
+
+div,input,textarea{
+    box-sizing: border-box;
+}
+
+input,option,textarea,select{
+    font-family: '微软雅黑', 'Microsoft YaHei', 'Arial', 'sans-serif';
+    font-size: 16px;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+}
+
+i{
+    font-style: normal;
+}
+
+.clear-fix:before,.clear-fix:after{
+    display: table;
+    content: '';
+    clear: both;
+}
+
+.calendar{
+    float: left;
+    width: 36.55rem;
+    height: 31rem;
+    border:1px solid #ccc;
+    border-right: none;
+    background-color: #fff;
+}
+
+.calendar>.module-head{
+    border-right: 1px solid #ccc;
+}
+
+.module-head>.calendar-title-btn{
+    float: right;
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-right: 1.4rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    font-size: 16px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.calendar-title-btn>div{
+    float: right;
+    width: 3rem;
+    background-color: #e5e5e5;
+    cursor: pointer;
+}
+
+.calendar-title-btn>.calendar-btn-active{
+    background-color: #e32525;
+    color: #fff;
+}
+
+#calendar_week{
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.calendar-tab{
+    /*height: 25.15rem;*/
+}
+
+.calendar-head{
+    height: 2.9rem;
+    line-height: 2.9rem;
+    text-align: center;
+    padding: 0 1.4rem;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #f3f3f3;
+    font-size: 0;
+}
+
+.calendar-head img{
+    width: 100%;
+}
+
+.btn-left,.btn-right{
+    display: inline-block;
+    cursor: pointer;
+    width: 0.8rem;
+}
+
+.date-now{
+    display: inline-block;
+    width: 30rem;
+    font-size: 20px;
+}
+
+.month-head{
+    height: 2.4rem;
+    line-height: 2.4rem;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    background-color: #ece9f1;
+    color: #999;
+}
+
+.month-head>div{
+    float: left;
+    height: 100%;
+    width: 14.28571429%;
+    text-align: center;
+}
+
+.month-tab-content{
+    border-top: 1px solid #ccc;
+    max-height: 22.75rem;
+    overflow-y: scroll;
+}
+
+.date-box{
+    float: left;
+    width: 14.28571429%;
+    height: 4.55rem;
+    padding: 0.4rem;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    cursor: pointer;
+}
+
+.date-box>.date-content{
+    display: inline-block;
+    line-height: 3.75rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    color: #333;
+}
+
+.date-text{
+    display: inline-block;
+    line-height: 20px;
+    vertical-align: middle;
+    width: 100%;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.date-schedule{
+    display: inline-block;
+    overflow: hidden;
+    font-size: 1rem;
+    width: 4rem;
+}
+
+.schedule-level1{
+    background-image: url("../img/dbg_01.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
+}
+.schedule-level2{
+    background-image: url("../img/dbg_02.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
+}
+.schedule-level3{
+    background-image: url("../img/dbg_03.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
+}
+.schedule-level4{
+    background-image: url("../img/dbg_04.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
+}
+
+#calendar_week_tab{
+    font-size: 16px;
+}
+
+.week-head{
+    padding-top: 0.2rem;
+    height: 2.4rem;
+    line-height: 16px;
+    overflow: hidden;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #ece9f1;
+}
+
+.week-head>div, .week-tab-content>div{
+    float: left;
+    width: 12.5%;
+    border-right: 1px solid #ccc;
+    text-align: center;
+}
+
+.week-tab-content>div{
+    border-top: none;
+}
+
+.week-tab-content{
+    max-height: 22.8rem;
+    overflow-y: scroll;
+}
+
+.day-tab-content{
+    max-height: 25.2rem;
+    overflow-y: scroll;
+}
+
+.week-head>div{
+    height: 100%;
+    border-right: none;
+}
+
+.day-head>div, .day-tab-content>div{
+    float: left;
+    width: 80%;
+    border-right: 1px solid #ccc;
+    text-align: center;
+}
+
+.week-tab-col, .day-tab-col{
+    position: relative;
+}
+
+.day-head>div:first-child, .day-tab-content>div:first-child{
+    width: 20%;
+}
+
+
+
+.time-content{
+    height: 2rem;
+    border-bottom: 1px dotted #ccc;
+}
+
+.time-bro{
+    height: 2rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.time-all-day{
+    height: 4rem;
+    line-height: 4rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.week-tab-content>.time-all-day{
+
+}
+
+.week-schedule{
+    position: absolute;
+    width: 100%;
+}
