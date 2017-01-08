@@ -1,17 +1,11 @@
 $(document).ready(function() {
+    // 假数据
+    var date = new Date(),
+        year = date.getFullYear(),
+        month = date.getMonth() + 1;
     var schedule_data = {
-        2016: {
-            11: {
-                10: [{
-                    start: '11:00',
-                    end: '12:00',
-                    theme: '部门早会',
-                    content: '布置当天工作',
-                    allDay: 0,
-                    level: 1
-                }]
-            },
-            10: {
+        2017: {
+            3: {
                 23: [{
                     start: '9:30',
                     end: '10:00',
@@ -27,34 +21,38 @@ $(document).ready(function() {
                     content: '当月工作总结',
                     allDay: 0,
                     level: 3
-                }],
-                15: [{
-                    start: '13:00',
-                    end: '14:00',
-                    theme: '部门周报',
-                    content: '总结本周工作',
-                    allDay: 0,
-                    level: 2
-                }],
-                8: [{
-                    theme: '项目加班',
-                    content: '抓紧解决遗留问题',
-                    allDay: 1,
-                    level: 4
-                    },
-                    {
-                    start: '18:00',
-                    end: '19:00',
-                    theme: '部门周报',
-                    content: '总结本周工作',
-                    allDay: 0,
-                    level: 2
-                    }
-                ]
+                }]
             }
         }
     };
-
+    schedule_data[year][month] = {
+        5: [
+            {
+            theme: '项目加班',
+            content: '抓紧解决遗留问题',
+            allDay: 1,
+            level: 4
+            },
+            {
+                start: '18:00',
+                end: '19:00',
+                theme: '部门周报',
+                content: '总结本周工作',
+                allDay: 0,
+                level: 2
+            }
+        ],
+        20: [
+            {
+                start: '9:00',
+                end: '11:30',
+                theme: '每月总结',
+                content: '当月工作总结',
+                allDay: 0,
+                level: 3
+            }
+        ]
+    }
 
     function initDateBox() {
         var html = '',
@@ -182,19 +180,35 @@ $(document).ready(function() {
     }
 
     function switchLevelToCss(level){
-        var result = '';
+        var result = {};
         switch (parseInt(level)){
             case 1:
-                result = 'schedule-level1';
+                result = {
+                    "level": 1,
+                    "schedule-leve": "schedule-level1",
+                    "info-level": "info-1"
+                };
                 break;
             case 2:
-                result = 'schedule-level2';
+                result = {
+                    "level": 2,
+                    "schedule-leve": "schedule-level2",
+                    "info-level": "info-2"
+                };
                 break;
             case 3:
-                result = 'schedule-level3';
+                result = {
+                    "level": 3,
+                    "schedule-leve": "schedule-level3",
+                    "info-level": "info-3"
+                };
                 break;
             case 4:
-                result = 'schedule-level4';
+                result = {
+                    "level": 4,
+                    "schedule-leve": "schedule-level4",
+                    "info-level": "info-4"
+                };
                 break;
         }
         return result;
@@ -237,8 +251,13 @@ $(document).ready(function() {
                     var schedule_arr = $this.data('schedule'),
                         schedule_text = '';
                     for(var j=0; j<schedule_arr.length; j++){
-                        $date_content.addClass(switchLevelToCss(schedule_arr[j]['level']));
-                        schedule_text+=schedule_arr[j]['theme']
+                        var level = switchLevelToCss(schedule_arr[j]['level']);
+                        $date_content.addClass(level['schedule-leve']);
+                        schedule_text+=schedule_arr[j]['theme'];
+                        if($date_content.data('level') && $date_content.data('level').level < level.level){
+                            $date_content.append('<div class="function-info '+ (level['info-level']) +'">2</div>');
+                            $date_content.data('level', level);
+                        }
                     }
                     $schedule_box.text(schedule_text);
                 }
@@ -405,11 +424,12 @@ $(document).ready(function() {
             var select_option = '', $option, schedule_arr = $this.data('schedule');
             var $select = $modal.find('#schedule_list');
             for(var i= 0, len =schedule_arr.length; i<len; i++){
-                select_option = '<option>'+ schedule_arr[i].theme +'</option>';
+                select_option = '<option value="'+ i +'">'+ schedule_arr[i].theme +'</option>';
                 $option = $(select_option);
                 $option.data('schedule', schedule_arr[i]);
                 $select.append($option);
             }
+            $select.val('0').trigger('change');
         }
         $modal.show();
     });
@@ -430,10 +450,10 @@ $(document).ready(function() {
     });
     $('#modal_save').click(function(){
         var $modal_body = $('.modal-body'),
-            start_time = $modal_body.find('#start_time').val(),
-            start_minute = $modal_body.find('#start_minute').val(),
-            end_time = $modal_body.find('#end_time').val(),
-            end_minute = $modal_body.find('#end_minute').val();
+            start_time = parseInt($modal_body.find('#start_time').val()),
+            start_minute = parseInt($modal_body.find('#start_minute').val()),
+            end_time = parseInt($modal_body.find('#end_time').val()),
+            end_minute = parseInt($modal_body.find('#end_minute').val());
         if(start_time > end_time || (start_time == end_time && start_minute >= end_minute)){
             alert('结束时间必须大于开始时间！');
             return false;
@@ -461,7 +481,7 @@ $(document).ready(function() {
         } else{
             $schedule_list.find('option:selected').data('schedule', schedule_obj);
         }
-        fillModal(true);
+        //fillModal(true);
         alert('保存成功！');
     });
     $('#modal_delete').click(function(){
@@ -486,8 +506,11 @@ $(document).ready(function() {
         var $modal = $('#modal'),
             cur_date = $modal.find('.modal-header>.modal-date').data('date');
         if(schedule_arr.length == 0){
-            delete schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str]
+            schedule_data[cur_date.year_str] && schedule_data[cur_date.year_str][cur_date.month_str] &&
+            delete schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str];
         } else{
+            schedule_data[cur_date.year_str] || (schedule_data[cur_date.year_str] = {});
+            schedule_data[cur_date.year_str][cur_date.month_str] || (schedule_data[cur_date.year_str][cur_date.month_str] = {});
             schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str] = schedule_arr;
         }
         if(cur_date.type == 'month'){
@@ -507,6 +530,7 @@ $(document).ready(function() {
         var $modal = $('#modal');
         if(isClear == true){
             $modal.find('input, textarea').val('');
+            $modal.find('#start_time, #start_minute, #end_time, #end_minute').val(0);
         } else{
             $modal.find('#schedule_type').val(parseInt(data['allDay'])).trigger('change');
             if(data['allDay']==0){

@@ -29,8 +29,113 @@ i{
     clear: both;
 }
 
-.calendar{
+#modal{
+    display: none;
+}
+
+.mask{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: black;
+    opacity: 0.5;
+    filter:alpha(opacity=50);
+}
+
+.modal{
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal h3{
+    margin: 0;
+    font-size: 30px;
+    line-height: 50px;
+}
+
+.modal-content{
+    margin: 20px auto;
+    padding: 20px;
+    width: 40rem;
+    height: 90%;
+    background-color: #fff;
+    overflow: scroll;
+}
+
+.modal-close{
+    float: right;
+    cursor: pointer;
+}
+
+.modal-text{
+    line-height: 40px;
+}
+
+.modal-body input, .modal-body textarea, .modal-body select{
+    width: 20%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.modal-theme input{
+    width: 100%;
+}
+
+.modal-body textarea{
+    height: 60px;
+    width: 100%;
+}
+
+.modal-footer{
+    margin-top: 15px;
+    text-align: center;
+}
+
+.modal-footer button{
+    height: 40px;
+    width: 15%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #51a2ff;
+    font-size: 20px;
+}
+
+#modal_save{
+    margin: 0 10px;
+}
+
+.module-head{
+    height: 2.85rem;
+    line-height: 2.85rem;
+    font-size: 20px;
+    overflow: hidden;
+    background: -webkit-linear-gradient(#f1f1f1, #dadada); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#f1f1f1, #dadada); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#f1f1f1, #dadada); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#f1f1f1, #dadada); /* 标准的语法 */
+}
+
+.module-head>div{
     float: left;
+    display: inline-block;
+    margin-left: 1.4rem;
+}
+
+.module-head>div:first-child{
+    margin-top: 0.2rem;
+}
+
+.calendar{
+    margin: 20px auto;
     width: 36.55rem;
     height: 31rem;
     border:1px solid #ccc;
@@ -71,10 +176,6 @@ i{
 #calendar_week{
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-}
-
-.calendar-tab{
-    /*height: 25.15rem;*/
 }
 
 .calendar-head{
@@ -138,6 +239,8 @@ i{
 }
 
 .date-box>.date-content{
+    overflow: hidden;
+    position: relative;
     display: inline-block;
     line-height: 3.75rem;
     width: 100%;

@@ -6,6 +6,25 @@
     <link rel="stylesheet" type="text/css" href="css/calendar.css">
 </head>
 <body>
+<script>
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+        //resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 12.5 * (clientWidth / 1200) + 'px';
+                };
+        if (doc.addEventListener){
+            win.addEventListener('resize', recalc, false);
+            //doc.addEventListener('DOMContentLoaded', recalc, false);
+        } else{
+            win.attachEvent('onresize', recalc);
+            //doc.attachEvent('onDOMContentLoaded', recalc);
+        }
+        recalc();
+    })(document, window);
+</script>
 <div class="calendar" id="calendar">
     <div class="module-head">
         <div>
@@ -60,14 +79,116 @@
         </div>
     </div>
     <div id="calendar_day_tab" class="calendar-tab" style="display: none">
-        <!--<div class="day-head clear-fix">-->
-        <!--<div></div>-->
-        <!--<div>date</div>-->
-        <!--</div>-->
         <div class="day-tab-content clear-fix" id="day_tab_content">
 
         </div>
     </div>
 </div>
+<div id="modal">
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-close">
+                ×
+            </div>
+            <div class="modal-header">
+                <h3>日程管理</h3>
+                <div class="modal-date modal-text"></div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-text">
+                    日程列表
+                </div>
+                <div>
+                    <select id="schedule_list">
+                        <option value="-1">新建日程</option>
+                    </select>
+                </div>
+                <div class="modal-text">
+                    任务类型
+                </div>
+                <div>
+                    <select id="schedule_type">
+                        <option value="0">时段任务</option>
+                        <option value="1">全天任务</option>
+                    </select>
+                </div>
+                <div class="modal-text">
+                    重要程度
+                </div>
+                <div>
+                    <select id="important">
+                        <option value="4">非常重要</option>
+                        <option value="3">重要</option>
+                        <option value="2">一般</option>
+                        <option value="1">不重要</option>
+                    </select>
+                </div>
+                <div id="time_slot">
+                    <div class="modal-text">
+                        开始时间
+                    </div>
+                    <div class="modal-start">
+                        <select id="start_time">
+                            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                            <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                            <option value="6">6</option><option value="7">7</option><option value="8">8</option>
+                            <option value="9">9</option><option value="10">10</option><option value="11">11</option>
+                            <option value="12">12</option><option value="13">13</option><option value="14">14</option>
+                            <option value="15">15</option><option value="16">16</option><option value="17">17</option>
+                            <option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                            <option value="21">21</option><option value="22">22</option><option value="23">23</option>
+                        </select>
+                        &nbsp;时
+                        <select id="start_minute">
+                            <option value="0">00</option>
+                            <option value="1">30</option>
+                        </select>
+                        &nbsp;分
+                    </div>
+                    <div class="modal-text">
+                        结束时间
+                    </div>
+                    <div class="modal-end">
+                        <select id="end_time">
+                            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                            <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                            <option value="6">6</option><option value="7">7</option><option value="8">8</option>
+                            <option value="9">9</option><option value="10">10</option><option value="11">11</option>
+                            <option value="12">12</option><option value="13">13</option><option value="14">14</option>
+                            <option value="15">15</option><option value="16">16</option><option value="17">17</option>
+                            <option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                            <option value="21">21</option><option value="22">22</option><option value="23">23</option>
+                        </select>
+                        &nbsp;时
+                        <select id="end_minute">
+                            <option value="0">00</option>
+                            <option value="1">30</option>
+                        </select>
+                        &nbsp;分
+                    </div>
+                </div>
+                <div class="modal-text">
+                    主题
+                </div>
+                <div class="modal-theme">
+                    <input>
+                </div>
+                <div class="modal-text">
+                    内容
+                </div>
+                <div class="modal-detail">
+                    <textarea></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal_save">保存</button>
+                <button id="modal_delete">删除</button>
+            </div>
+        </div>
+    </div>
+    <div class="mask"></div>
+</div>
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/calendar.js"></script>
 </body>
 </html>
