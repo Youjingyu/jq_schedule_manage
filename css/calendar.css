@@ -152,7 +152,7 @@ i{
     display: inline-block;
     margin-top: 0.5rem;
     margin-right: 1.4rem;
-    height: 1.8rem;
+    /*height: 1.8rem;*/
     line-height: 1.8rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
@@ -220,11 +220,14 @@ i{
     width: 14.28571429%;
     text-align: center;
 }
-
+.calendar-tab{
+    max-height: 25.2rem;
+    overflow-y: auto;
+}
 .month-tab-content{
     border-top: 1px solid #ccc;
     max-height: 22.75rem;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .date-box{
@@ -296,7 +299,7 @@ i{
 }
 
 .week-head{
-    padding-top: 0.2rem;
+    /*padding-top: 0.2rem;*/
     height: 2.4rem;
     line-height: 16px;
     overflow: hidden;
@@ -318,12 +321,12 @@ i{
 
 .week-tab-content{
     max-height: 22.8rem;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .day-tab-content{
     max-height: 25.2rem;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .week-head>div{
