@@ -1,2 +1,3 @@
 # schedule-management
-a schedule management plugin based on jQuery
+- 基于jQuery的轻量级日程管理插件
+- TODO：API设计
