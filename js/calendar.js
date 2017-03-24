@@ -1,30 +1,9 @@
 $(document).ready(function() {
+    $.getJSON('test_data.json', function(schedule_data){
     // 假数据
     var date = new Date(),
         year = date.getFullYear(),
         month = date.getMonth() + 1;
-    var schedule_data = {
-        2017: {
-            3: {
-                23: [{
-                    start: '9:30',
-                    end: '10:00',
-                    theme: '部门早会',
-                    content: '布置当天工作',
-                    allDay: 0,
-                    level: 1
-                }],
-                2: [{
-                    start: '9:00',
-                    end: '11:30',
-                    theme: '每月总结',
-                    content: '当月工作总结',
-                    allDay: 0,
-                    level: 3
-                }]
-            }
-        }
-    };
     schedule_data[year][month] = {
         5: [
             {
@@ -52,7 +31,8 @@ $(document).ready(function() {
                 level: 3
             }
         ]
-    }
+    };
+    initDateBox();
 
     function initDateBox() {
         var html = '',
@@ -70,9 +50,6 @@ $(document).ready(function() {
         $('#calendar_month_tab').find('.month-tab-content').html(html);
         fillDateBox(schedule_data);
     }
-
-    initDateBox();
-
     function getDateData(date_obj, type) {
         var cur_date;
         if (type == 'days') {
@@ -139,44 +116,8 @@ $(document).ready(function() {
     }
 
     function switchMonthToEn(month) {
-        switch (parseInt(month)) {
-            case 0:
-                return '1';
-                break;
-            case 1:
-                return '2';
-                break;
-            case 2:
-                return '3';
-                break;
-            case 3:
-                return '4';
-                break;
-            case 4:
-                return '5';
-                break;
-            case 5:
-                return '6';
-                break;
-            case 6:
-                return '7';
-                break;
-            case 7:
-                return '8';
-                break;
-            case 8:
-                return '9';
-                break;
-            case 9:
-                return '10';
-                break;
-            case 10:
-                return '11';
-                break;
-            case 11:
-                return '12';
-                break;
-        }
+        var month_arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+        return month_arr[parseInt(month)];
     }
 
     function switchLevelToCss(level){
@@ -215,7 +156,8 @@ $(document).ready(function() {
     }
 
     function fillDateBox(data) {
-        var cur_date = $('#calendar').find('.date-now').data('data'),
+        var $calendar = $('#calendar'),
+            cur_date = $calendar.find('.date-now').data('data'),
             year_str = cur_date.year.toString(),
             month_str = (cur_date.month+1).toString();
         fillCalendarHead('month');
@@ -224,7 +166,7 @@ $(document).ready(function() {
             week_day_1th = getDateData(cur_date, 'week_1th'),
             used_box = week_day_1th + days;
 
-        $('#calendar').find('.date-box').each(function (i) {
+        $calendar.find('.date-box').each(function (i) {
             var $this = $(this),
                 $date_content = $this.find('.date-content'),
                 $num_box = $this.find('.date-num'),
@@ -557,10 +499,11 @@ $(document).ready(function() {
         }
         time_html = '<div><div class="time-all-day"></div>' + time_html + '</div>';
         week_tab_html = time_html + week_tab_html;
-        $('#week_tab_content').append(week_tab_html).find('div:first').find('.time-content').each(function(i){
+        var $week_tab_content = $('#week_tab_content');
+        $week_tab_content.append(week_tab_html).find('div:first').find('.time-content').each(function(i){
             $(this).text(i>9 ? i+':00' : '0'+i+':00');
         });
-        $('#week_tab_content').find('.time-all-day')[0].innerHTML = 'all day';
+        $week_tab_content.find('.time-all-day')[0].innerHTML = 'all day';
     }
     initWeekBox();
 
@@ -571,10 +514,12 @@ $(document).ready(function() {
         }
         day_tab_html = '<div><div class="time-all-day"></div>' + day_html + '</div>'+
             '<div class="day-tab-col"><div class="time-all-day"></div>' + day_html + '</div>';
-        $('#day_tab_content').append(day_tab_html).find('div:first').find('.time-content').each(function(i){
+        var $day_tab_content = $('#day_tab_content');
+        $day_tab_content.append(day_tab_html).find('div:first').find('.time-content').each(function(i){
             $(this).text(i>9 ? i+':00' : '0'+i+':00');
         });
-        $('#day_tab_content').find('.time-all-day')[0].innerHTML = 'all day';
+        $day_tab_content.find('.time-all-day')[0].innerHTML = 'all day';
     }
     initDayBox();
+    });
 });
