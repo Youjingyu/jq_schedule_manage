@@ -4,6 +4,8 @@ $(document).ready(function () {
         var date = new Date(),
             year = date.getFullYear(),
             month = date.getMonth() + 1;
+        schedule_data[year] || schedule_data[year] = {};
+        schedule_data[year][month] || schedule_data[year][month] = {};
         schedule_data[year][month]['5'] = [
             {
                 theme: '项目加班',
